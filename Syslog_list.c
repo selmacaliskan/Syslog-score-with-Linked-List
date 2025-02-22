@@ -60,7 +60,7 @@ int main() {
     char line[512];
     while (fgets(line, sizeof(line), fp)) {
         char timestamp[20], logLevel[10], message[256];
-        // Assuming syslog format: "timestamp logLevel message"
+        // Syslog biçimini varsayarak: "timestamp logLevel message"
         sscanf(line, "%19s %9s %[^\n]", timestamp, logLevel, message);
         addSyslogEntry(&syslogList, timestamp, logLevel, message);
     }
