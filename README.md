@@ -32,11 +32,12 @@ Bu programda kullanılan bağlı liste türü, **tek yönlü bağlı liste** (si
 #include <string.h>
 
 // Syslog girdi yapılandırması
+//tip tanımlaması
 typedef struct SyslogEntry {
-    char timestamp[20];
-    char logLevel[10];
-    char message[256];
-    struct SyslogEntry* next;
+    char timestamp[20];//zaman damgası
+    char logLevel[10];//log seviyesi(INFO,EROR vb.)
+    char message[256];//log mesajı
+    struct SyslogEntry* next;//sonraki düğüm(node) adresi
 } SyslogEntry;
 
 // Fonksiyon da yeni bir syslog girdisi oluşturulur.
@@ -88,7 +89,7 @@ int main() {
     char line[512];
     while (fgets(line, sizeof(line), fp)) {
         char timestamp[20], logLevel[10], message[256];
-        // Assuming syslog format: "timestamp logLevel message"
+        // Syslog biçimini varsayarak: "timestamp logLevel message"
         sscanf(line, "%19s %9s %[^\n]", timestamp, logLevel, message);
         addSyslogEntry(&syslogList, timestamp, logLevel, message);
     }
@@ -100,7 +101,9 @@ int main() {
 
     // freeSyslogEntries(Syslog girdilerini serbest bırakma) isimli fonksiyonu çağırma.
     freeSyslogEntries(syslogList);
-
+    
+    // stdlib.h kütüphanesinde tanımlı bir makrodur(genel tanımlama).
+	//Anlamı: Program başarılı bir şekilde çalıştı ve sorunsuz bir şekilde sonlandı.
     return EXIT_SUCCESS;
 }
 ```
